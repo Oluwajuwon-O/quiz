@@ -321,7 +321,7 @@
 
         <form id="quizForm">
             <div class="progress-info" id="progressInfo" style="display: none;">
-                Questions are in their original order.
+                Questions are randomized.
             </div>
             <div class="question-container" id="questionsContainer">
                 </div>
@@ -656,7 +656,7 @@
         let shuffledQuestions = [];
         let currentStudent = null;
 
-        /* REMOVED:
+        // Function to shuffle an array (Fisher-Yates algorithm)
         function shuffleArray(array) {
             const shuffled = [...array];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -665,7 +665,6 @@
             }
             return shuffled;
         }
-        */
 
         function startQuiz() {
             const name = document.getElementById('studentName').value.trim();
@@ -680,13 +679,13 @@
             currentStudent = {
                 name: name,
                 studentId: studentId || 'N/A',
-                class: studentClass || 'SSS 2', // Include class from input
+                class: studentClass || 'SSS 2', 
                 startTime: new Date().toISOString(),
                 questionOrder: []
             };
 
-            // QUESTIONS ARE NO LONGER SHUFFLED
-            shuffledQuestions = questions; 
+            // QUESTIONS ARE NOW SHUFFLED
+            shuffledQuestions = shuffleArray(questions); // Re-enabled shuffling
             currentStudent.questionOrder = shuffledQuestions.map(q => q.id);
 
             // Hide student info, show quiz
