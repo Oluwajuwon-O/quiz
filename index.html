@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SSS 3 Mathematics Mock Exam 2025</title>
+    <title>SSS 2 Mathematics Practice Questions 2025</title>
     <style>
         * {
             margin: 0;
@@ -293,12 +293,11 @@
     <div class="container">
         <div class="header">
             <h1>OLUTAYO INTERNATIONAL COLLEGE</h1>
-            <p>Mathematics Mock Examination 2025 - SSS 3</p>
+            <p>Mathematics Practice Questions 2025 - SSS 2</p>
         </div>
 
         <div class="quiz-info">
-            <div>📝 Paper 1</div>
-            <div>⏱️ Time: 2 Hours</div>
+            <div>⏱️ Deadline: 13th July, 2025</div>
             <div>📊 Questions: 50</div>
             <div>✅ Multiple Choice</div>
         </div>
@@ -315,14 +314,14 @@
             </div>
             <div class="form-group">
                 <label for="studentClass">Class</label>
-                <input type="text" id="studentClass" value="SSS 3" readonly>
+                <input type="text" id="studentClass" value="SSS 2" readonly>
             </div>
             <button class="start-btn" onclick="startQuiz()">Start Test</button>
         </div>
 
         <form id="quizForm">
             <div class="progress-info" id="progressInfo" style="display: none;">
-                Questions are randomized for each student
+                Questions are in their original order.
             </div>
             <div class="question-container" id="questionsContainer">
                 </div>
@@ -338,7 +337,8 @@
                 <div class="progress-fill" id="progressFill"></div>
             </div>
             <div class="admin-section">
-                <h4>Teacher/Admin Functions</h4>
+                <h4>Teacher/Admin Functions (Local Storage Demo)</h4>
+                <p>Note: These functions operate only on data stored in *this browser*.</p>
                 <button class="download-btn" onclick="downloadResults()">Download All Results (CSV)</button>
                 <button class="download-btn" onclick="viewAllResults()">View All Results</button>
                 <button class="download-btn" onclick="clearAllResults()">Clear All Results</button>
@@ -456,7 +456,7 @@
             {
                 id: 18,
                 text: "The base radius and slant height of a solid cone are 8 cm and 14 cm respectively. Calculate, correct to two decimal places, its volume. [Take π = 22/7]",
-                options: ["553.14cm³", "640.87cm³", "838.67cm³", "770.32cm³"],
+                options: ["553.14cm²", "640.87cm²", "838.67cm²", "770.32cm²"],
                 correct: 2
             },
             {
@@ -670,6 +670,7 @@
         function startQuiz() {
             const name = document.getElementById('studentName').value.trim();
             const studentId = document.getElementById('studentId').value.trim();
+            const studentClass = document.getElementById('studentClass').value.trim();
             
             if (!name) {
                 alert('Please enter your full name to continue.');
@@ -679,6 +680,7 @@
             currentStudent = {
                 name: name,
                 studentId: studentId || 'N/A',
+                class: studentClass || 'SSS 2', // Include class from input
                 startTime: new Date().toISOString(),
                 questionOrder: []
             };
@@ -763,19 +765,7 @@
                 currentStudent.answers = answers;
                 currentStudent.endTime = new Date().toISOString();
 
-                // Display results
-                document.getElementById('questionsContainer').style.display = 'none';
-                document.getElementById('submitSection').style.display = 'none';
-                document.getElementById('progressInfo').style.display = 'none'; // Hide "Questions are randomized"
-                document.getElementById('results').style.display = 'block';
-
-                document.getElementById('scoreDisplay').innerText = `You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%)`;
-                document.getElementById('progressFill').style.width = `${percentage}%`;
-
-                // --- Backend Integration Placeholder ---
-                // For a real application, you would send this 'currentStudent' object to your backend.
-                // Example using fetch API (requires a Netlify Function or similar backend endpoint):
-                /*
+                // --- Backend Integration ---
                 try {
                     const response = await fetch('/.netlify/functions/save-quiz-result', {
                         method: 'POST',
@@ -784,31 +774,41 @@
                         },
                         body: JSON.stringify(currentStudent),
                     });
+
                     if (response.ok) {
-                        console.log('Quiz results saved successfully!');
+                        console.log('Quiz results saved successfully to Google Sheet!');
+                        alert('Your quiz has been submitted successfully!'); // Provide user feedback
                     } else {
-                        console.error('Failed to save quiz results:', response.statusText);
-                        alert('There was an error saving your results. Please try again or contact the administrator.');
+                        const errorData = await response.json();
+                        console.error('Failed to save quiz results:', response.status, errorData.error || response.statusText);
+                        alert(`There was an error saving your results: ${errorData.error || response.statusText}. Please contact the administrator.`);
                     }
                 } catch (error) {
-                    console.error('Error submitting quiz:', error);
+                    console.error('Network error or server issue:', error);
                     alert('Network error or server issue. Could not submit results.');
                 }
-                */
+                
+                // Display results (after attempting to save to backend)
+                document.getElementById('questionsContainer').style.display = 'none';
+                document.getElementById('submitSection').style.display = 'none';
+                document.getElementById('progressInfo').style.display = 'none';
+                document.getElementById('results').style.display = 'block';
 
-                // --- Local Storage Demo (Remove if using backend for persistence) ---
-                saveResult(currentStudent);
+                document.getElementById('scoreDisplay').innerText = `You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%)`;
+                document.getElementById('progressFill').style.width = `${percentage}%`;
+
+                // REMOVED: saveResult(currentStudent); // This was for local storage demo, now replaced by backend fetch
             }
         }
 
         // Add event listener for form submission
         document.getElementById('quizForm').addEventListener('submit', submitQuiz);
 
-        // --- Admin Functions (using localStorage for demonstration) ---
+        // --- Admin Functions (using localStorage for demonstration - keep for local testing or remove if not needed) ---
         // IMPORTANT: For production, these functions should interact with a secure backend.
         // localStorage is client-side and easily accessible/editable by users.
 
-        function saveResult(result) {
+        function saveResult(result) { // This function is now only called if you explicitly call it elsewhere
             let allResults = loadAllResults();
             allResults.push(result);
             localStorage.setItem('quizResults', JSON.stringify(allResults));
@@ -829,19 +829,21 @@
 
             let csvContent = "data:text/csv;charset=utf-8,";
             
-            // CSV Header
-            const headers = ['Name', 'Student ID', 'Score', 'Total Questions', 'Percentage', 'Start Time', 'End Time', 'Question Order', 'Answers'];
+            // CSV Header - Ensure this matches the order of data sent to Google Sheet if you want consistency
+            const headers = ['Timestamp', 'Student Name', 'Student ID', 'Class', 'Score', 'Total Questions', 'Percentage', 'Quiz Start Time', 'Quiz End Time', 'Question Order', 'Answers Details'];
             csvContent += headers.join(',') + "\n";
 
             allResults.forEach(result => {
                 const row = [
+                    `"${new Date(result.endTime).toLocaleString()}"`, // Using endTime as general submission timestamp
                     `"${result.name}"`,
                     `"${result.studentId}"`,
+                    `"${result.class || 'SSS 2'}"`, // Default to SSS 2 if class is not provided
                     result.score,
                     result.totalQuestions,
                     result.percentage,
-                    result.startTime,
-                    result.endTime,
+                    `"${result.startTime}"`,
+                    `"${result.endTime}"`,
                     `"${JSON.stringify(result.questionOrder).replace(/"/g, '""')}"`, // Stringify and escape for CSV
                     `"${JSON.stringify(result.answers).replace(/"/g, '""')}"` // Stringify and escape for CSV
                 ];
@@ -851,7 +853,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", "quiz_results.csv");
+            link.setAttribute("download", "quiz_results_local.csv"); // Renamed to clarify it's local
             document.body.appendChild(link); // Required for Firefox
             link.click();
             document.body.removeChild(link); // Clean up
@@ -864,11 +866,12 @@
                 return;
             }
 
-            let displayString = "--- All Quiz Results ---\n\n";
+            let displayString = "--- All Quiz Results (Local) ---\n\n"; // Added (Local) for clarity
             allResults.forEach((result, index) => {
                 displayString += `Student ${index + 1}:\n`;
                 displayString += `  Name: ${result.name}\n`;
                 displayString += `  Student ID: ${result.studentId}\n`;
+                displayString += `  Class: ${result.class || 'SSS 2'}\n`;
                 displayString += `  Score: ${result.score}/${result.totalQuestions} (${result.percentage}%)\n`;
                 displayString += `  Start Time: ${new Date(result.startTime).toLocaleString()}\n`;
                 displayString += `  End Time: ${new Date(result.endTime).toLocaleString()}\n`;
@@ -885,12 +888,12 @@
         }
 
         function clearAllResults() {
-            if (confirm('Are you sure you want to clear all quiz results? This action cannot be undone.')) {
+            if (confirm('Are you sure you want to clear ALL LOCAL quiz results? This action cannot be undone.')) {
                 localStorage.removeItem('quizResults');
-                alert('All quiz results have been cleared.');
+                alert('All LOCAL quiz results have been cleared.');
             }
         }
 
     </script>
 </body>
-</html><!DOCTYPE html>
+</html>
