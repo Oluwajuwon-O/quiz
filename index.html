@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SSS 3 Mathematics Mock Exam 2025</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1em;
+        }
+
+        .quiz-info {
+            background: #f8f9fa;
+            padding: 20px 30px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .quiz-info div {
+            display: inline-block;
+            margin-right: 30px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .student-info {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .student-info h3 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #495057;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .start-btn {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 1em;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .start-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(39, 174, 96, 0.3);
+        }
+
+        .start-btn:disabled {
+            background: #95a5a6;
+            cursor: not-allowed;
+        }
+
+        .question-container {
+            padding: 30px;
+            display: none;
+        }
+
+        .question {
+            margin-bottom: 35px;
+            padding: 25px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .question:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .question-number {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 1.1em;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 1.05em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .option:hover {
+            border-color: #3498db;
+            background: #f1f8ff;
+        }
+
+        .option input[type="radio"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+            accent-color: #3498db;
+        }
+
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .submit-section {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+            border-top: 1px solid #e9ecef;
+            display: none;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .results {
+            display: none;
+            padding: 30px;
+            background: #f8f9fa;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .score {
+            font-size: 2em;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 10px;
+            background: #e9ecef;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+        }
+
+        .admin-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+        }
+
+        .admin-section h4 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: #17a2b8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .download-btn:hover {
+            background: #138496;
+        }
+
+        .progress-info {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #666;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .quiz-info div {
+                display: block;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OLUTAYO INTERNATIONAL COLLEGE</h1>
+            <p>Mathematics Mock Examination 2025 - SSS 3</p>
+        </div>
+
+        <div class="quiz-info">
+            <div>📝 Paper 1</div>
+            <div>⏱️ Time: 2 Hours</div>
+            <div>📊 Questions: 50</div>
+            <div>✅ Multiple Choice</div>
+        </div>
+
+        <div class="student-info" id="studentInfo">
+            <h3>Student Information</h3>
+            <div class="form-group">
+                <label for="studentName">Full Name *</label>
+                <input type="text" id="studentName" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label for="studentId">Student ID (Optional)</label>
+                <input type="text" id="studentId" placeholder="Enter your student ID">
+            </div>
+            <div class="form-group">
+                <label for="studentClass">Class</label>
+                <input type="text" id="studentClass" value="SSS 3" readonly>
+            </div>
+            <button class="start-btn" onclick="startQuiz()">Start Test</button>
+        </div>
+
+        <form id="quizForm">
+            <div class="progress-info" id="progressInfo" style="display: none;">
+                Questions are randomized for each student
+            </div>
+            <div class="question-container" id="questionsContainer">
+                </div>
+
+            <div class="submit-section" id="submitSection">
+                <button type="submit" class="submit-btn">Submit Test</button>
+            </div>
+        </form>
+
+        <div class="results" id="results">
+            <div class="score" id="scoreDisplay"></div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="admin-section">
+                <h4>Teacher/Admin Functions</h4>
+                <button class="download-btn" onclick="downloadResults()">Download All Results (CSV)</button>
+                <button class="download-btn" onclick="viewAllResults()">View All Results</button>
+                <button class="download-btn" onclick="clearAllResults()">Clear All Results</button>
+            </div>
+            <p style="text-align: center; color: #666; margin-top: 15px;">
+                <button onclick="location.reload()" style="background: #6c757d; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">New Student</button>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            {
+                id: 1,
+                text: "A point on the ground is 5 m away from the foot of a vertical wall 12 m high. Calculate, correct to the nearest degree, the angle of depression of the point from the top of the wall.",
+                options: ["25°", "23°", "67°", "65°"],
+                correct: 1
+            },
+            {
+                id: 2,
+                text: "The gradient of the line passing through the points (3, 6) and (x, 4) is -2/5. Find the value of x.",
+                options: ["3", "8", "6", "5"],
+                correct: 1
+            },
+            {
+                id: 3,
+                text: "A woman pours 85 litres of kerosene into a cylindrical container with radius 7 cm. Calculate, correct to the nearest cm, the depth of the kerosene in the container. [Take π = 22/7]",
+                options: ["240 cm", "552 cm", "480 cm", "595 cm"],
+                correct: 1
+            },
+            {
+                id: 4,
+                text: "Given that x² - 11x + m is a perfect square, find the value of m.",
+                options: ["11/2", "121/8", "121/4", "121"],
+                correct: 2
+            },
+            {
+                id: 5,
+                text: "The sides of a scalene triangle are 4 cm, 9 cm and 11 cm. Calculate, correct to the nearest whole number, the area of the triangle.",
+                options: ["13cm²", "17cm²", "21cm²", "19cm²"],
+                correct: 1
+            },
+            {
+                id: 6,
+                text: "In a hall, there are 175 persons. 12% are children, 56 are men and the rest are women. If one person is selected at random from the hall, find the probability that a woman is selected.",
+                options: ["3/25", "11/25", "8/25", "14/25"],
+                correct: 3
+            },
+            {
+                id: 7,
+                text: "A student measured the length of a classroom and obtained 3.99 m which is less than the actual length. If the percentage error was 5%, what was the actual length?",
+                options: ["3.80 m", "3.78 m", "4.18 m", "4.20 m"],
+                correct: 3
+            },
+            {
+                id: 8,
+                text: "A car covers the first 80 km of a journey in 2 hours and completes the journey by travelling further for 2.5 hours at 50 km/h. What is the average speed of the entire journey?",
+                options: ["44 4/9 km/h", "45 5/9 km/h", "47 1/4 km/h", "63 1/4 km/h"],
+                correct: 0
+            },
+            {
+                id: 9,
+                text: "If log x = 2 - 3log 2, find the value of x.",
+                options: ["5/2", "2/5", "2/25", "25/2"],
+                correct: 3
+            },
+            {
+                id: 10,
+                text: "The graph of y = x² - 5x + k passes through the point (3,1). Find the value of k.",
+                options: ["2", "3", "7", "5"],
+                correct: 2
+            },
+            {
+                id: 11,
+                text: "Find the value of x in the diagram. (Triangle with angles shown)",
+                options: ["41", "37", "35", "31"],
+                correct: 1
+            },
+            {
+                id: 12,
+                text: "In the diagram, p + q = 250°. Find the angle marked s.",
+                options: ["70°", "110°", "290°", "250°"],
+                correct: 1
+            },
+            {
+                id: 13,
+                text: "If x : y : z = 2 : 3 : 4, evaluate (9x + 3y)/(6z - 2y).",
+                options: ["1.5", "2.5", "2.0", "3.0"],
+                correct: 0
+            },
+            {
+                id: 14,
+                text: "Find the mean of (x + y), (2x + 3y), (2x - 2y) and (3x - 2y).",
+                options: ["4x", "x", "2x", "3x"],
+                correct: 2
+            },
+            {
+                id: 15,
+                text: "A box contains 2 red, 6 white and 5 black balls, all of the same size. If a ball is selected at random, what is the probability that it is black?",
+                options: ["2/13", "5/11", "5/13", "11/13"],
+                correct: 2
+            },
+            {
+                id: 16,
+                text: "In the diagram, MNPQ is a circle, centre O. ∠MQN = 43° and ∠QNP = 57°. Find the value of y.",
+                options: ["70°", "90°", "80°", "100°"],
+                correct: 2
+            },
+            {
+                id: 17,
+                text: "Describe the locus, l in the diagram.",
+                options: ["Locus of points equidistant from x and z", "Locus of points equidistant from x and y", "Locus of points equidistant from xy and zy", "Locus of points equidistant from zx and zy"],
+                correct: 3
+            },
+            {
+                id: 18,
+                text: "The base radius and slant height of a solid cone are 8 cm and 14 cm respectively. Calculate, correct to two decimal places, its volume. [Take π = 22/7]",
+                options: ["553.14cm³", "640.87cm³", "838.67cm³", "770.32cm³"],
+                correct: 2
+            },
+            {
+                id: 19,
+                text: "Abudu can do a piece of work in 6 days and Efah can do the same work in 3 days. What fraction of the work can both do together in a day?",
+                options: ["1/3", "1/8", "2/3", "1/2"],
+                correct: 3
+            },
+            {
+                id: 20,
+                text: "If P = {x: 1 ≤ x ≤ 6} and Q = {x: 2 < x < 9} where x ∈ R, find P ∩ Q.",
+                options: ["{x: 2 ≤ x < 6}", "{x: 2 ≤ x ≤ 6}", "{x: 2 < x ≤ 6}", "{x: 2 < x < 6}"],
+                correct: 2
+            },
+            {
+                id: 21,
+                text: "Given that p² + q² + r² = 50, p = 3 and q = 4, find the positive value of r.",
+                options: ["5", "3", "4", "2"],
+                correct: 0
+            },
+            {
+                id: 22,
+                text: "If 1/2 and -3 are the roots of px² + qx + r = 0, find the values of p, q and r.",
+                options: ["p = 2, q = -5, r = 3", "p = 2, q = 5, r = 3", "p = 2, q = 5, r = -3", "p = -2, q = 5, r = 3"],
+                correct: 1
+            },
+            {
+                id: 23,
+                text: "A cylindrical container closed at both ends has radius 5 cm and height 10 cm. Calculate, correct to two decimal places, the total surface area. [Take π = 22/7]",
+                options: ["470.43cm²", "471.43cm²", "456.43cm²", "460.43cm²"],
+                correct: 1
+            },
+            {
+                id: 24,
+                text: "Badu is four times as old as Juliet. In 10 years Badu will be twice as old as Juliet. Find Juliet's age.",
+                options: ["3 years", "6 years", "5 years", "8 years"],
+                correct: 2
+            },
+            {
+                id: 25,
+                text: "When the point (4,5) is rotated through an angle in the anticlockwise direction about the origin, its image is (-5, 4). What is the angle of rotation?",
+                options: ["90°", "270°", "180°", "300°"],
+                correct: 0
+            },
+            {
+                id: 26,
+                text: "Find the value of x in the diagram. (Circle with angles)",
+                options: ["165°", "50°", "95°", "85°"],
+                correct: 3
+            },
+            {
+                id: 27,
+                text: "A woman bought a washing machine for $18,000.00. If the exchange rate is $0.045 to ₦ 1.00, find in ₦, the cost of the machine.",
+                options: ["₦ 400,000.00", "₦ 600,000.00", "₦ 250,000.00", "₦ 300,000.00"],
+                correct: 0
+            },
+            {
+                id: 28,
+                text: "Determine the least value of x such that 7 + x ≡ 3 (mod 8).",
+                options: ["3", "4", "5", "6"],
+                correct: 1
+            },
+            {
+                id: 29,
+                text: "If (4m + 3n)/(4m - 3n) = 5/2, find the ratio of m : n.",
+                options: ["4 : 7", "4 : 3", "3 : 4", "7 : 4"],
+                correct: 3
+            },
+            {
+                id: 30,
+                text: "Yakubu received 12½% of the sales made in a certain month. If the amount he received was $35,000.00, what was the total sales made?",
+                options: ["$245,000.00", "$140,000.00", "$315,000.00", "$280,000.00"],
+                correct: 3
+            },
+            {
+                id: 31,
+                text: "The angle of elevation of the top of a vertical pole from a point, P on a level ground is 60°. The distance from P to the foot of the pole is 55 m. Find the height of the pole.",
+                options: ["55/2 m", "55√3 m", "55√3/3 m", "55√3/2 m"],
+                correct: 1
+            },
+            {
+                id: 32,
+                text: "The ratio of girls to boys in a certain committee is 5:2. If there are 35 members in the committee, how many more boys must be added to the committee to have the ratio of girls to boys as 5:4?",
+                options: ["20", "10", "15", "5"],
+                correct: 1
+            },
+            {
+                id: 33,
+                text: "Find the values of x for which (x + 1)/(3x² - 12) is not defined.",
+                options: ["x = 2, -4", "x = 4, -4", "x = -2, 2", "x = 0, 2"],
+                correct: 2
+            },
+            {
+                id: 34,
+                text: "Given that tan x = 12/5, find the value of (sin x cos x).",
+                options: ["165/60", "169/65", "60/169", "65/169"],
+                correct: 2
+            },
+            {
+                id: 35,
+                text: "Consider these two statements: P: N is an odd number Q: N is a prime number greater than 2. Express 'If N is not an odd number then N is not a prime number greater than 2' in symbolic form.",
+                options: ["~P ⇒ Q", "~P ∧ ~Q", "P ⇒ ~Q", "~P ⇒ ~Q"],
+                correct: 3
+            },
+            {
+                id: 36,
+                text: "A sector which subtends an angle 150° is cut from a circular plate of radius 14 cm. Find, correct to one decimal place, the perimeter of the remaining plate. [Take π = 22/7]",
+                options: ["65.3 cm", "79.3 cm", "84.7 cm", "64.7 cm"],
+                correct: 3
+            },
+            {
+                id: 37,
+                text: "One side of a gutter is 15 cm lower than the other side. A plank of wood, which is laid across the gutter to form a bridge, slopes at an angle of 35° to the horizontal. How wide is the gutter?",
+                options: ["18.31 cm", "21.42 cm", "26.15 cm", "10.50 cm"],
+                correct: 1
+            },
+            {
+                id: 38,
+                text: "In the diagram, MOP is the diameter of the circle MNP centre O. ∠MNP = (2x)° and ∠EPM = (5x + 18)°. Find the value of x.",
+                options: ["72°", "24°", "48°", "18°"],
+                correct: 3
+            },
+            {
+                id: 39,
+                text: "The height of a square base pyramid is thrice the length of a side of its base. If the base area is 324 cm², find the volume of the pyramid.",
+                options: ["17,496 cm³", "5,832 cm³", "324 cm³", "972 cm³"],
+                correct: 1
+            },
+            {
+                id: 40,
+                text: "If 4^x = 1/1024, find the value of x.",
+                options: ["-10", "-5", "8", "4"],
+                correct: 1
+            },
+            {
+                id: 41,
+                text: "In the diagram, O is the centre of the circle WXY. |WX| = 1/3|XY| and ∠ZXY = 26°. Find ∠XYZ.",
+                options: ["62°", "42°", "52°", "32°"],
+                correct: 3
+            },
+            {
+                id: 42,
+                text: "Evaluate: 141₆ + 231₆ - 102₆",
+                options: ["412₆", "405₆", "312₆", "205₆"],
+                correct: 2
+            },
+            {
+                id: 43,
+                text: "In the first year, Mr. Kwakye's annual salary was ₦1,560.00. His salary was increased each year by a constant value, y until it was ₦13,980.00 in the 13th year. Calculate the value of y.",
+                options: ["955.38", "1,230.00", "1,129.09", "1,035.00"],
+                correct: 3
+            },
+            {
+                id: 44,
+                text: "Given that 16/9, x, 1, y is a Geometric Progression (G.P), find the value of xy.",
+                options: ["9/16", "25/12", "2", "1"],
+                correct: 0
+            },
+            {
+                id: 45,
+                text: "A chord of a circle, 12 cm long subtends an angle of 150° at the centre of the circle. Find the radius of the circle.",
+                options: ["3.0 cm", "4.3 cm", "6.0 cm", "6.2 cm"],
+                correct: 3
+            },
+            {
+                id: 46,
+                text: "The lines 3x + 2y = 4 and y = 2x - 5 intersect at a point P(x,y). Find the coordinates of P.",
+                options: ["(2, -1)", "(-2, 1)", "(2, -1)", "(-2, -1)"],
+                correct: 0
+            },
+            {
+                id: 47,
+                text: "Make u the subject of the relation t/(s + u) = s/(t - u).",
+                options: ["u = s - t", "u = t - s", "u = ts", "u = t + s"],
+                correct: 1
+            },
+            {
+                id: 48,
+                text: "Calculate the mean of the distribution. (Based on the table showing number of subjects vs number of students)",
+                options: ["2", "3", "8", "5"],
+                correct: 3
+            },
+            {
+                id: 49,
+                text: "Find the median. (Based on the same table)",
+                options: ["2", "5", "3", "8"],
+                correct: 1
+            },
+            {
+                id: 50,
+                text: "A rectangular tank of sides 4 m by 8m by 11 m has the same volume as a cylindrical tank of height 7 m. Calculate the base radius of the cylindrical tank. [Take π = 22/7]",
+                options: ["4 m", "22 m", "8 m", "88 m"],
+                correct: 2
+            }
+        ];
+
+        let shuffledQuestions = [];
+        let currentStudent = null;
+
+        /* REMOVED:
+        function shuffleArray(array) {
+            const shuffled = [...array];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            return shuffled;
+        }
+        */
+
+        function startQuiz() {
+            const name = document.getElementById('studentName').value.trim();
+            const studentId = document.getElementById('studentId').value.trim();
+            
+            if (!name) {
+                alert('Please enter your full name to continue.');
+                return;
+            }
+
+            currentStudent = {
+                name: name,
+                studentId: studentId || 'N/A',
+                startTime: new Date().toISOString(),
+                questionOrder: []
+            };
+
+            // QUESTIONS ARE NO LONGER SHUFFLED
+            shuffledQuestions = questions; 
+            currentStudent.questionOrder = shuffledQuestions.map(q => q.id);
+
+            // Hide student info, show quiz
+            document.getElementById('studentInfo').style.display = 'none';
+            document.getElementById('progressInfo').style.display = 'block';
+            document.getElementById('questionsContainer').style.display = 'block';
+            document.getElementById('submitSection').style.display = 'block';
+
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            
+            shuffledQuestions.forEach((question, index) => {
+                const questionDiv = document.createElement('div');
+                questionDiv.className = 'question';
+                
+                questionDiv.innerHTML = `
+                    <div class="question-number">Question ${index + 1}</div>
+                    <div class="question-text">${question.text}</div>
+                    <div class="options">
+                        ${question.options.map((option, optIndex) => `
+                            <div class="option">
+                                <input type="radio" name="q${index}" value="${optIndex}" id="q${index}_${optIndex}">
+                                <label for="q${index}_${optIndex}">${String.fromCharCode(97 + optIndex)}) ${option}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                
+                container.appendChild(questionDiv);
+            });
+        }
+
+        function calculateScore() {
+            let score = 0;
+            const answers = [];
+            const formData = new FormData(document.getElementById('quizForm'));
+            
+            shuffledQuestions.forEach((question, index) => {
+                const selectedOptionValue = formData.get(`q${index}`);
+                const selectedAnswerIndex = selectedOptionValue ? parseInt(selectedOptionValue) : null;
+                const isCorrect = selectedAnswerIndex !== null && selectedAnswerIndex === question.correct;
+                
+                answers.push({
+                    questionId: question.id,
+                    questionText: question.text,
+                    selectedAnswerIndex: selectedAnswerIndex,
+                    selectedAnswerText: selectedAnswerIndex !== null ? question.options[selectedAnswerIndex] : 'No answer',
+                    correctAnswerIndex: question.correct,
+                    correctAnswerText: question.options[question.correct],
+                    isCorrect: isCorrect
+                });
+
+                if (isCorrect) {
+                    score++;
+                }
+            });
+            
+            return { score, answers };
+        }
+
+        async function submitQuiz(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            const { score, answers } = calculateScore();
+            const totalQuestions = questions.length;
+            const percentage = (score / totalQuestions) * 100;
+
+            if (currentStudent) {
+                currentStudent.score = score;
+                currentStudent.totalQuestions = totalQuestions;
+                currentStudent.percentage = percentage.toFixed(2);
+                currentStudent.answers = answers;
+                currentStudent.endTime = new Date().toISOString();
+
+                // Display results
+                document.getElementById('questionsContainer').style.display = 'none';
+                document.getElementById('submitSection').style.display = 'none';
+                document.getElementById('progressInfo').style.display = 'none'; // Hide "Questions are randomized"
+                document.getElementById('results').style.display = 'block';
+
+                document.getElementById('scoreDisplay').innerText = `You scored ${score} out of ${totalQuestions} (${percentage.toFixed(2)}%)`;
+                document.getElementById('progressFill').style.width = `${percentage}%`;
+
+                // --- Backend Integration Placeholder ---
+                // For a real application, you would send this 'currentStudent' object to your backend.
+                // Example using fetch API (requires a Netlify Function or similar backend endpoint):
+                /*
+                try {
+                    const response = await fetch('/.netlify/functions/save-quiz-result', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(currentStudent),
+                    });
+                    if (response.ok) {
+                        console.log('Quiz results saved successfully!');
+                    } else {
+                        console.error('Failed to save quiz results:', response.statusText);
+                        alert('There was an error saving your results. Please try again or contact the administrator.');
+                    }
+                } catch (error) {
+                    console.error('Error submitting quiz:', error);
+                    alert('Network error or server issue. Could not submit results.');
+                }
+                */
+
+                // --- Local Storage Demo (Remove if using backend for persistence) ---
+                saveResult(currentStudent);
+            }
+        }
+
+        // Add event listener for form submission
+        document.getElementById('quizForm').addEventListener('submit', submitQuiz);
+
+        // --- Admin Functions (using localStorage for demonstration) ---
+        // IMPORTANT: For production, these functions should interact with a secure backend.
+        // localStorage is client-side and easily accessible/editable by users.
+
+        function saveResult(result) {
+            let allResults = loadAllResults();
+            allResults.push(result);
+            localStorage.setItem('quizResults', JSON.stringify(allResults));
+            console.log('Result saved to localStorage:', result);
+        }
+
+        function loadAllResults() {
+            const results = localStorage.getItem('quizResults');
+            return results ? JSON.parse(results) : [];
+        }
+
+        function downloadResults() {
+            const allResults = loadAllResults();
+            if (allResults.length === 0) {
+                alert('No results to download.');
+                return;
+            }
+
+            let csvContent = "data:text/csv;charset=utf-8,";
+            
+            // CSV Header
+            const headers = ['Name', 'Student ID', 'Score', 'Total Questions', 'Percentage', 'Start Time', 'End Time', 'Question Order', 'Answers'];
+            csvContent += headers.join(',') + "\n";
+
+            allResults.forEach(result => {
+                const row = [
+                    `"${result.name}"`,
+                    `"${result.studentId}"`,
+                    result.score,
+                    result.totalQuestions,
+                    result.percentage,
+                    result.startTime,
+                    result.endTime,
+                    `"${JSON.stringify(result.questionOrder).replace(/"/g, '""')}"`, // Stringify and escape for CSV
+                    `"${JSON.stringify(result.answers).replace(/"/g, '""')}"` // Stringify and escape for CSV
+                ];
+                csvContent += row.join(',') + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "quiz_results.csv");
+            document.body.appendChild(link); // Required for Firefox
+            link.click();
+            document.body.removeChild(link); // Clean up
+        }
+
+        function viewAllResults() {
+            const allResults = loadAllResults();
+            if (allResults.length === 0) {
+                alert('No results to display.');
+                return;
+            }
+
+            let displayString = "--- All Quiz Results ---\n\n";
+            allResults.forEach((result, index) => {
+                displayString += `Student ${index + 1}:\n`;
+                displayString += `  Name: ${result.name}\n`;
+                displayString += `  Student ID: ${result.studentId}\n`;
+                displayString += `  Score: ${result.score}/${result.totalQuestions} (${result.percentage}%)\n`;
+                displayString += `  Start Time: ${new Date(result.startTime).toLocaleString()}\n`;
+                displayString += `  End Time: ${new Date(result.endTime).toLocaleString()}\n`;
+                displayString += `  Detailed Answers (first 5 for brevity):\n`;
+                result.answers.slice(0, 5).forEach(ans => {
+                    displayString += `    Q${ans.questionId}: Selected ${ans.selectedAnswerText}, Correct ${ans.correctAnswerText} (${ans.isCorrect ? 'Correct' : 'Incorrect'})\n`;
+                });
+                if (result.answers.length > 5) {
+                    displayString += `    ...and ${result.answers.length - 5} more answers.\n`;
+                }
+                displayString += "\n------------------------\n\n";
+            });
+            alert(displayString); // Using alert for simplicity, consider a modal for better UX
+        }
+
+        function clearAllResults() {
+            if (confirm('Are you sure you want to clear all quiz results? This action cannot be undone.')) {
+                localStorage.removeItem('quizResults');
+                alert('All quiz results have been cleared.');
+            }
+        }
+
+    </script>
+</body>
+</html><!DOCTYPE html>
